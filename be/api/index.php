@@ -21,15 +21,15 @@ class Rest
             if (class_exists($classe)) {
                 if (method_exists($classe, $metodo)) {
                     $retorno = call_user_func_array(array(new $classe, $metodo), $parametros);
-                    return json_encode(array('status' => 'sucesso', 'dados' => $retorno));
+                    return json_encode(array('status' => 'sucesso', 'data' => $retorno));
                 } else {
-                    return json_encode(array('status' => 'erro', 'dados' => 'Método inexistente'));
+                    return json_encode(array('status' => 'erro', 'data' => 'Método inexistente'));
                 }
             } else {
-                return json_encode(array('status' => 'erro', 'dados' => 'Classe inexistente'));
+                return json_encode(array('status' => 'erro', 'data' => 'Classe inexistente'));
             }
         } catch (Exception $e) {
-            return json_encode(array('status' =>'erro', 'dados' => $e->getMessage()));
+            return json_encode(array('status' =>'erro', 'data' => $e->getMessage()));
         }
     }
 }
