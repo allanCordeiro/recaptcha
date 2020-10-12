@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Lista de produtos disponíveis</title>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    </head>
+    <body>
+        <table id="lista-produtos" class="display nowrap" style="width:100%">
+            <thead>
+                <th>id</th>
+                <th>nome do produto</th>
+            </thead>
+        </table>
+    </body>
+</html>
+<script>
+    $(document).ready(function() {
+        $('#lista-produtos').DataTable({
+            "ajax": {
+                "url":"http://localhost/recaptcha/be/api/produto/mostrar",
+                "dataType": "json"
+            }
+        });
+    });
+</script>
