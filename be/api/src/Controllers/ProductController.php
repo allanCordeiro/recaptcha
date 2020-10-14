@@ -1,10 +1,11 @@
 <?php
+namespace Recaptcha\Controllers;
 
-class Produto
+class ProductController
 {
-    public function mostrar()
+    public function show()
     {
-        $con = new PDO('mysql: host=localhost; dbname=base_teste;',
+        $con = new \PDO('mysql: host=localhost; dbname=base_teste;',
             'teste',
             '123@456'
         );
@@ -15,12 +16,12 @@ class Produto
 
         $resultados = array();
 
-        while($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+        while($row = $sql->fetch(\PDO::FETCH_ASSOC)) {
             $resultados[] = $row;
         }
 
         if(!$resultados) {
-            throw new Exception("Nenhum produto no estoque!");
+            throw new \Exception("Nenhum produto no estoque!");
         }
 
         return $resultados;
