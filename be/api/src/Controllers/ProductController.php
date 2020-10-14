@@ -5,26 +5,29 @@ class ProductController
 {
     public function show()
     {
-        $con = new \PDO('mysql: host=localhost; dbname=base_teste;',
-            'teste',
-            '123@456'
-        );
+        if (AuthController::checkAuth()) {
+            $con = new \PDO('mysql: host=localhost; dbname=base_teste;',
+                'teste',
+                '123@456'
+            );
 
-        $sql = "SELECT id, name FROM produtos";
-        $sql = $con->prepare($sql);
-        $sql->execute();
+            $sql = "SELECT id, name FROM produtos";
+            $sql = $con->prepare($sql);
+            $sql->execute();
 
-        $resultados = array();
+            $resultados = array();
 
-        while($row = $sql->fetch(\PDO::FETCH_ASSOC)) {
-            $resultados[] = $row;
+            while($row = $sql->fetch(\PDO::FETCH_ASSOC)) {
+                $resultados[] = $row;
+            }
+
+            if(!$resultados) {
+                throw new \Exception("Nenhum produto no estoque!");
+            }
+
+            return $resultados;
         }
 
-        if(!$resultados) {
-            throw new \Exception("Nenhum produto no estoque!");
-        }
-
-        return $resultados;
-
+        throw new \Exception('Não autorizado.');
     }
 }
