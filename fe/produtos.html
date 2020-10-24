@@ -30,9 +30,13 @@
     $(document).ready(function() {
         $('#lista-produtos').DataTable({
             "ajax": {
-                "url":"http://localhost/recaptcha/be/api/product/show",
+                "url":"http://recaptcha.test/recaptcha/be/api/product/show",
                 "dataType": "json",
-                "dataSrc": 'data'
+                "dataSrc": 'data',
+                "method": 'GET',
+                "headers": {
+                    'Authorization': 'Bearer ' + localStorage.getItem('user_token_jwt')
+                }
             },
             columns: [
                     {data: 'id'},

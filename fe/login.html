@@ -6,14 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="stylesheet" href="css/signin.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body class="text-center">      
-        <form class="form-signin">
+        <form id="login" class="form-signin" action="/">
             <h1 class="h3 mb-3 font-weight-normal">Autentique-se</h1>
             <label for="inputEmail" class="sr-only">Endereço de email</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Endereço de email" required  autofocus>
+            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Endereço de email" required  autofocus>
             <label for="inputPassword" class="sr-only">Senha</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>    
+            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Senha" required>    
             <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox" value="remember-me"> Lembre de mim
@@ -23,3 +24,20 @@
         </form>        
     </body>
 </html>
+
+<script>
+    $("#login").submit(function(event){
+        console.log($("#login").serialize());
+        event.preventDefault();
+        $.ajax({
+            type:"POST",
+            url: "http://recaptcha.test/recaptcha/be/api/auth/login",
+            data: $("#login").serialize(),
+        })
+            .done(function( data ) {
+                    localStorage.setItem('user_token_jwt', data.data);
+                    window.location.href = 'http://recaptcha.test/recaptcha/fe/produtos.html';
+
+        });
+    })
+</script>
